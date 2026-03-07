@@ -1,0 +1,41 @@
+{
+  "name": "mcp-orchestrator",
+  "version": "0.1.0",
+  "description": "Meta MCP server for routing, load balancing, and monitoring downstream MCP servers",
+  "type": "module",
+  "main": "dist/src/index.js",
+  "bin": {
+    "mcp-orch": "dist/src/cli.js",
+    "mcp-orchestrator": "dist/src/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "dev": "tsx src/cli.ts start",
+    "start": "node dist/src/cli.js start"
+  },
+  "keywords": [
+    "mcp",
+    "orchestrator",
+    "router",
+    "load-balancer",
+    "monitoring"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "chalk": "^5.4.1",
+    "cli-table3": "^0.6.5",
+    "commander": "^12.1.0",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.13.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  }
+}
