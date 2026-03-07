@@ -1,0 +1,15 @@
+servers:
+  # Start with all examples disabled to avoid failing startup.
+  # Replace commands with real MCP servers available in your environment,
+  # then set enabled: true.
+  - name: arxiv
+    enabled: false
+    command: npx -y your-arxiv-mcp-server
+    description: Search and read arXiv papers
+    health_check_interval: 30s
+
+  - name: github
+    enabled: false
+    command: npx -y your-github-mcp-server
+    description: GitHub repository analytics
+    priority: high
