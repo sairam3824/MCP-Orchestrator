@@ -1,0 +1,138 @@
+==============================================================
+  HOW TO RUN — mcp-orchestrator
+==============================================================
+
+PREREQUISITES
+  - Node.js  >= 18 (recommended: 20+)
+  - npm      >= 9
+
+--------------------------------------------------------------
+1. INSTALL DEPENDENCIES
+--------------------------------------------------------------
+
+  npm install
+
+--------------------------------------------------------------
+2. CONFIGURE
+--------------------------------------------------------------
+
+  Copy the example config and edit it:
+
+  cp config/mcp-orchestrator.example.yml mcp-orchestrator.yml
+
+  Open mcp-orchestrator.yml and:
+  - Replace the placeholder commands with real MCP server commands
+  - Set  enabled: true  for any server you want active
+  - Adjust priority, timeouts, rate limits as needed
+
+  Example entry:
+
+    servers:
+      - name: arxiv
+        enabled: true
+        command: npx -y your-arxiv-mcp-server
+        description: Search and read arXiv papers
+        health_check_interval: 30s
+
+--------------------------------------------------------------
+3. BUILD (required for production mode)
+--------------------------------------------------------------
+
+  npm run build
+
+--------------------------------------------------------------
+4. RUN THE ORCHESTRATOR
+--------------------------------------------------------------
+
+  DEVELOPMENT MODE (runs TypeScript directly via tsx):
+
+    npm run dev
+
+  PRODUCTION MODE (runs compiled JS from dist/):
+
+    npm start
+
+  Both commands start the orchestrator as a stdio MCP server.
+  It reads mcp-orchestrator.yml, spawns downstream MCP servers,
+  and exposes all their tools through a single unified interface.
+
+--------------------------------------------------------------
+5. MONITOR (open a separate terminal)
+--------------------------------------------------------------
+
+  Show server health & uptime:
+
+    npx mcp-orch status
+
+  Show call counts, latency, and error rates:
+
+    npx mcp-orch metrics
+
+  Show aggregated tool call audit logs:
+
+    npx mcp-orch logs
+
+  Show last 100 log entries:
+
+    npx mcp-orch logs --tail 100
+
+--------------------------------------------------------------
+6. RUN TESTS
+--------------------------------------------------------------
+
+  npm test
+
+--------------------------------------------------------------
+7. TYPE-CHECK WITHOUT BUILDING
+--------------------------------------------------------------
+
+  npm run typecheck
+
+--------------------------------------------------------------
+COMMAND REFERENCE
+--------------------------------------------------------------
+
+  npm install           Install all dependencies
+  npm run build         Compile TypeScript to dist/
+  npm run dev           Start in development mode (tsx)
+  npm start             Start in production mode (node)
+  npm test              Run the test suite (vitest)
+  npm run typecheck     Type-check without emitting files
+
+  npx mcp-orch start          Start orchestrator (stdio)
+  npx mcp-orch status         Server health dashboard
+  npx mcp-orch metrics        Call/latency/error metrics
+  npx mcp-orch logs           Audit log viewer
+
+--------------------------------------------------------------
+CLI OPTIONS
+--------------------------------------------------------------
+
+  mcp-orch start
+    -c, --config <path>       Config file      (default: mcp-orchestrator.yml)
+    --state-file <path>       State file       (default: .mcp-orch/runtime-state.json)
+    --audit-log <path>        Audit log file   (default: .mcp-orch/audit.log)
+    --disable-discovery       Skip npm package auto-discovery
+
+  mcp-orch status / metrics
+    --state-file <path>       State file       (default: .mcp-orch/runtime-state.json)
+
+  mcp-orch logs
+    --audit-log <path>        Audit log file   (default: .mcp-orch/audit.log)
+    --tail <count>            Lines to show    (default: 50)
+
+--------------------------------------------------------------
+NOTES
+--------------------------------------------------------------
+
+  - Hot reload: Edit mcp-orchestrator.yml while running —
+    servers reload automatically without restart.
+
+  - Runtime state is written to .mcp-orch/runtime-state.json
+
+  - Audit logs are appended to .mcp-orch/audit.log
+
+  - Discovered npm MCP packages default to enabled: false.
+    You must explicitly enable them in the config.
+
+==============================================================
