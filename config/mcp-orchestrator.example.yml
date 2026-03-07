@@ -1,0 +1,33 @@
+servers:
+  - name: arxiv
+    enabled: false
+    command: npx -y your-arxiv-mcp-server
+    description: Search and read arXiv papers
+    health_check_interval: 30s
+    priority: normal
+    timeout_ms: 10000
+    allow_tools: []
+    deny_tools: []
+    rate_limits:
+      "*":
+        maxCalls: 120
+        windowMs: 60000
+
+  - name: github
+    enabled: false
+    command: npx -y your-github-mcp-server
+    description: GitHub repository analytics
+    health_check_interval: 20s
+    priority: high
+    timeout_ms: 10000
+    allow_tools: []
+    deny_tools: []
+
+  # Redundant instance for load balancing/failover.
+  - name: github
+    enabled: false
+    command: npx -y your-github-mcp-server --region us-east
+    description: GitHub analytics replica
+    health_check_interval: 20s
+    priority: high
+    timeout_ms: 10000
