@@ -23,7 +23,7 @@
     "monitoring"
   ],
   "author": "",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4",
     "chalk": "^5.4.1",

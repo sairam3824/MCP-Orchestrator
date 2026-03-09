@@ -80,7 +80,7 @@ Once configured, Claude will see **all tools** from every downstream MCP server 
 ├── mcp-orchestrator.yml  Your local config (gitignored or customised)
 ├── package.json
 ├── tsconfig.json
-├── LICENSE               Apache License 2.0
+├── LICENSE               MIT License
 ├── torun.txt             Quick-start run instructions
 └── README.md
 ```
@@ -256,4 +256,5 @@ mcp-orch logs [options]         Show aggregated tool call logs
 
 ## License
 
-Licensed under the [Apache License 2.0](LICENSE).
+Licensed under the [MIT License](LICENSE).
+
